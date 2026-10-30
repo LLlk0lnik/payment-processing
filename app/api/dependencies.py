@@ -3,7 +3,7 @@ from typing import Annotated
 
 from fastapi import Header, HTTPException
 
-from app.config import get_settings
+from app.core.config import get_settings
 
 
 async def authenticate(x_api_key: Annotated[str | None, Header()] = None) -> None:

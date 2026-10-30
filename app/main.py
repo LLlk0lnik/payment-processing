@@ -2,8 +2,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.payments import router
-from app.db import engine
+from app.api.v1.payments import router
+from app.db.session import engine
 
 
 @asynccontextmanager

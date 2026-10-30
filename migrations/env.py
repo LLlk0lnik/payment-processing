@@ -4,8 +4,8 @@ from alembic import context
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from app import models  # noqa: F401
-from app.config import get_settings
-from app.db import Base
+from app.core.config import get_settings
+from app.db.base import Base
 
 config = context.config
 target_metadata = Base.metadata

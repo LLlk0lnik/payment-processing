@@ -4,8 +4,9 @@ from datetime import UTC, datetime
 
 from sqlalchemy import select
 
-from app.db import Session, engine
-from app.messaging import declare_queues, make_broker, queue
+from app.db.session import Session, engine
+from app.messaging.broker import make_broker
+from app.messaging.topology import declare_queues, queue
 from app.models import OutboxEvent
 
 logger = logging.getLogger(__name__)

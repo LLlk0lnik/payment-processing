@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, Mock
 
 import pytest
 
-from app.services import processing
+from app.services import gateway
 
 
 @pytest.mark.parametrize(
@@ -12,10 +12,10 @@ from app.services import processing
 async def test_gateway_delay_and_probability_boundary(monkeypatch, draw, expected):
     delay = Mock(return_value=3.5)
     sleep = AsyncMock()
-    monkeypatch.setattr(processing.random, "uniform", delay)
-    monkeypatch.setattr(processing.random, "random", Mock(return_value=draw))
-    monkeypatch.setattr(processing.asyncio, "sleep", sleep)
+    monkeypatch.setattr(gateway.random, "uniform", delay)
+    monkeypatch.setattr(gateway.random, "random", Mock(return_value=draw))
+    monkeypatch.setattr(gateway.asyncio, "sleep", sleep)
 
-    assert await processing.emulate_gateway() == expected
+    assert await gateway.emulate_gateway() == expected
     delay.assert_called_once_with(2, 5)
     sleep.assert_awaited_once_with(3.5)

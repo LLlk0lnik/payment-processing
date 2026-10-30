@@ -6,10 +6,11 @@ import httpx
 from faststream import FastStream
 from faststream.rabbit import RabbitMessage
 
-from app.config import get_settings
-from app.db import engine
-from app.messaging import dead_queue, declare_queues, make_broker, queue, retry_queues
-from app.schemas import PaymentEvent
+from app.core.config import get_settings
+from app.db.session import engine
+from app.messaging.broker import make_broker
+from app.messaging.topology import dead_queue, declare_queues, queue, retry_queues
+from app.schemas.events import PaymentEvent
 from app.services.processing import process_payment
 
 logger = logging.getLogger(__name__)

@@ -1,18 +1,12 @@
-import asyncio
-import random
 from datetime import UTC, datetime
 from uuid import UUID
 
 import httpx
 from sqlalchemy import select
 
-from app.db import Session
+from app.db.session import Session
 from app.models import Payment
-
-
-async def emulate_gateway() -> str:
-    await asyncio.sleep(random.uniform(2, 5))
-    return "succeeded" if random.random() < 0.9 else "failed"
+from app.services.gateway import emulate_gateway
 
 
 async def process_payment(payment_id: UUID, client: httpx.AsyncClient) -> None:

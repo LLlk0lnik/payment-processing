@@ -3,8 +3,8 @@ from uuid import uuid4
 
 import pytest
 
-from app import worker
-from app.messaging import dead_queue, retry_queues
+from app.messaging import consumer as worker
+from app.messaging.topology import dead_queue, retry_queues
 
 
 @pytest.mark.parametrize(

@@ -3,7 +3,7 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from app.schemas import PaymentCreate
+from app.schemas.payments import PaymentCreate
 
 
 def request(**overrides):

@@ -6,10 +6,10 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.auth import authenticate
-from app.db import get_session
+from app.api.dependencies import authenticate
+from app.db.session import get_session
 from app.models import OutboxEvent, Payment
-from app.schemas import PaymentAccepted, PaymentCreate, PaymentDetail
+from app.schemas.payments import PaymentAccepted, PaymentCreate, PaymentDetail
 
 router = APIRouter(prefix="/api/v1/payments", dependencies=[Depends(authenticate)])
 Database = Annotated[AsyncSession, Depends(get_session)]

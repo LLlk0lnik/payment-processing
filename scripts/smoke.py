@@ -1,4 +1,4 @@
-"""Run against Docker Desktop: python tests/smoke.py (requires the compose stack)."""
+"""Run against Docker Desktop: python scripts/smoke.py (requires the compose stack)."""
 
 import json
 import os

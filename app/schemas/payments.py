@@ -44,7 +44,3 @@ class PaymentDetail(PaymentAccepted):
     metadata: dict = Field(validation_alias="payment_metadata")
     webhook_url: str
     processed_at: datetime | None
-
-
-class PaymentEvent(BaseModel):
-    payment_id: UUID

@@ -52,10 +52,10 @@ services:
       - "127.0.0.1:8000:8000"
   consumer:
     <<: *service
-    command: ["python", "-m", "app.worker"]
+    command: ["python", "-m", "app.messaging.consumer"]
   outbox:
     <<: *service
-    command: ["python", "-m", "app.outbox"]
+    command: ["python", "-m", "app.messaging.outbox"]
 
 volumes:
   postgres_data:

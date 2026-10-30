@@ -10,8 +10,9 @@ from faststream.rabbit import TestRabbitBroker as RabbitTestBroker
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from app import outbox, worker
-from app.db import Base
+from app.db.base import Base
+from app.messaging import consumer as worker
+from app.messaging import outbox
 from app.models import OutboxEvent, Payment
 from app.services import processing
 

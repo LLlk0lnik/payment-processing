@@ -7,7 +7,8 @@ import pytest
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from app.db import Base, get_session
+from app.db.base import Base
+from app.db.session import get_session
 from app.main import app
 from app.models import OutboxEvent, Payment
 

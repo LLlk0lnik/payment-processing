@@ -89,7 +89,7 @@ DLQ просматривается в RabbitMQ UI. После устранени
 Уже доставленный webhook повторно не отправится. Автоматического удаления
 обработанных outbox-строк нет; для длительной эксплуатации нужна политика хранения.
 
-Для сквозной проверки на Docker Desktop выполните `.venv/bin/python tests/smoke.py`
+Для сквозной проверки на Docker Desktop выполните `.venv/bin/python scripts/smoke.py`
 после запуска compose. Проверка поднимает временный HTTP-приёмник на порту 19090,
 создаёт два платежа и проверяет webhook, интервалы retry и DLQ. Тестовые записи
 и одно сообщение в DLQ остаются для просмотра.
@@ -98,18 +98,34 @@ DLQ просматривается в RabbitMQ UI. После устранени
 
 ```text
 app/
-  api/             # HTTP, авторизация, создание платежей
-  services/        # шлюз и webhook
-  config.py        # настройки окружения
-  db.py            # асинхронные сессии
-  models.py        # таблицы
-  schemas.py       # контракты запросов и событий
-  messaging.py     # топология очередей
-  main.py          # ASGI-приложение
-  outbox.py        # relay
-  worker.py        # единый consumer
-migrations/        # Alembic
-tests/             # проверки контрактов, retry и PostgreSQL
+  api/
+    dependencies.py     # проверка API-ключа
+    v1/payments.py      # HTTP-эндпоинты
+  core/config.py        # настройки окружения
+  db/
+    base.py             # базовый класс моделей
+    session.py          # движок и асинхронные сессии
+  models/
+    payment.py          # платёж
+    outbox.py           # событие outbox
+  schemas/
+    payments.py         # запросы и ответы API
+    events.py           # контракт события очереди
+  services/
+    gateway.py          # эмуляция платёжного шлюза
+    processing.py       # обработка платежа и webhook
+  messaging/
+    broker.py           # подключение к RabbitMQ
+    topology.py         # основная очередь, retry и DLQ
+    consumer.py         # единый обработчик сообщений
+    outbox.py           # публикация событий из БД
+  main.py               # ASGI-приложение
+migrations/             # Alembic и версии миграций
+tests/
+  unit/                 # схемы, шлюз, маршрутизация retry
+  integration/          # API, PostgreSQL, outbox и обработка
+  conftest.py           # общие настройки тестов
+scripts/smoke.py        # сквозная проверка Docker-окружения
 ```
 
 ## Разработка и проверки

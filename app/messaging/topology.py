@@ -1,17 +1,8 @@
-from faststream.rabbit import Channel, RabbitBroker, RabbitQueue
-
-from app.config import get_settings
+from faststream.rabbit import RabbitBroker, RabbitQueue
 
 QUEUE_NAME = "payments.new"
 DLQ_NAME = "payments.dead"
 RETRY_DELAYS = (1000, 2000)
-
-
-def make_broker() -> RabbitBroker:
-    return RabbitBroker(
-        get_settings().rabbitmq_url,
-        default_channel=Channel(prefetch_count=1, publisher_confirms=True, on_return_raises=True),
-    )
 
 
 queue = RabbitQueue(
